@@ -1,0 +1,25 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    function isValidTask(data) {
+      return data.keys().hasOnly(['title', 'description', 'completed', 'priority', 'dueDate', 'createdAt', 'updatedAt']) &&
+             data.title is string && data.title.size() > 0 && data.title.size() <= 50 &&
+             data.description is string &&
+             data.completed is bool &&
+             data.priority in ['low', 'medium', 'high'] &&
+             (data.dueDate == null || data.dueDate is timestamp) &&
+             data.createdAt is timestamp &&
+             data.updatedAt is timestamp;
+    }
+
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+
+      match /tasks/{taskId} {
+        allow read, delete: if request.auth != null && request.auth.uid == userId;
+        allow create, update: if request.auth != null && request.auth.uid == userId && isValidTask(request.resource.data);
+      }
+    }
+  }
+}

@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+@theme {
+  --color-pastel-pink: #ffd6e0;
+  --color-pastel-blue: #c1e1c1;
+  --color-pastel-purple: #e0b0ff;
+  --color-pastel-yellow: #fffacd;
+  --color-pastel-green: #b2e6b2;
+  
+  --color-text-dark: #4a4a4a;
+  --color-text-light: #8e8e8e;
+  
+  --color-bg-main: #fcfcfc;
+  --color-bg-card: #ffffff;
+}
+
+body {
+  color: var(--color-text-dark);
+  background-color: var(--color-bg-main);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.card-shadow {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+}
+
+.cute-border {
+  border: 2px solid var(--color-pastel-pink);
+  border-radius: 1rem;
+}
